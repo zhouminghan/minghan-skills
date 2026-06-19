@@ -1,0 +1,61 @@
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+.venv/
+venv/
+env/
+ENV/
+
+# ===== Node / JS =====
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# ===== 运行时 / 临时文件 =====
+*.log
+*.tmp
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ===== IDE =====
+.vscode/
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# ===== AI 工具 =====
+.codebuddy/
+.claude/
+.cursor/
+.aider*
+.windsurf/
+
+# ===== 技能运行时产物（yao-meta-skill 风格参考）=====
+# 各 skill 的运行时临时文件，不应入仓库
+*/runtime/
+*/reports/
+*/evidence/
+*/failures/
+*/.previews/
+*/evals/
+
+# ===== 敏感 / 配置 =====
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
