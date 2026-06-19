@@ -34,13 +34,22 @@ Thumbs.db
 *.iml
 *.iws
 *.ipr
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 
 # ===== AI 工具 =====
 .codebuddy/
 .claude/
+.codex/
 .cursor/
 .aider*
 .windsurf/
+.copilot/
+.tabnine/
+.sourcegraph*
 
 # ===== 技能运行时产物（yao-meta-skill 风格参考）=====
 # 各 skill 的运行时临时文件，不应入仓库
