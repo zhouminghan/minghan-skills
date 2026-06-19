@@ -16,6 +16,13 @@ from datetime import datetime
 from itertools import combinations
 
 
+# ── 候选数默认值（可通过 --red-min/max --blue-min/max 覆盖）───────────────
+CANDIDATE_RED_MIN = 15
+CANDIDATE_RED_MAX = 18
+CANDIDATE_BLUE_MIN = 6
+CANDIDATE_BLUE_MAX = 8
+
+
 def parse_jsonl_data(filepath):
     """解析 JSONL 格式的历史开奖数据文件"""
     records = []
@@ -342,8 +349,8 @@ def analyze_repeat(records):
     repeat_rate = has_repeat / len(repeat_counts) if repeat_counts else 0
     avg_repeat = sum(repeat_counts) / len(repeat_counts) if repeat_counts else 0
 
-    latest_reds = set(records[0]["reds"])
-    latest_blue = records[0]["blue"]
+    latest_reds = set(records[-1]["reds"])
+    latest_blue = records[-1]["blue"]
 
     red_scores = {num: 1 for num in range(1, 34)}
     blue_scores = {num: 1 for num in range(1, 17)}
@@ -415,6 +422,14 @@ def normalize_scores(scores):
 def main():
     parser = argparse.ArgumentParser(description="双色球科学分析脚本")
     parser.add_argument("filepath", help="JSONL 缓存文件路径")
+    parser.add_argument("--red-min", type=int, default=CANDIDATE_RED_MIN,
+                        help=f"候选红球数下限（默认 {CANDIDATE_RED_MIN}）")
+    parser.add_argument("--red-max", type=int, default=CANDIDATE_RED_MAX,
+                        help=f"候选红球数上限（默认 {CANDIDATE_RED_MAX}）")
+    parser.add_argument("--blue-min", type=int, default=CANDIDATE_BLUE_MIN,
+                        help=f"候选蓝球数下限（默认 {CANDIDATE_BLUE_MIN}）")
+    parser.add_argument("--blue-max", type=int, default=CANDIDATE_BLUE_MAX,
+                        help=f"候选蓝球数上限（默认 {CANDIDATE_BLUE_MAX}）")
     args = parser.parse_args()
 
     # 解析数据
@@ -463,9 +478,9 @@ def main():
     sorted_reds = sorted(red_total_scores.items(), key=lambda x: x[1], reverse=True)
     sorted_blues = sorted(blue_total_scores.items(), key=lambda x: x[1], reverse=True)
 
-    num_red_candidates = random.randint(15, 18)
+    num_red_candidates = random.randint(args.red_min, args.red_max)
     candidate_reds = sorted([num for num, _ in sorted_reds[:num_red_candidates]])
-    num_blue_candidates = random.randint(6, 8)
+    num_blue_candidates = random.randint(args.blue_min, args.blue_max)
     candidate_blues = sorted([num for num, _ in sorted_blues[:num_blue_candidates]])
 
     dim_names = [DIMENSION_MAP[d][0] for d in strategy["dimensions"]]

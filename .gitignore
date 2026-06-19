@@ -12,6 +12,7 @@ build/
 venv/
 env/
 ENV/
+test_*.py
 
 # ===== Node / JS =====
 node_modules/
@@ -59,6 +60,9 @@ Thumbs.db
 */failures/
 */.previews/
 */evals/
+
+# ===== 特定 skill 忽略 =====
+ssq-picker/data/
 
 # ===== 敏感 / 配置 =====
 .env
